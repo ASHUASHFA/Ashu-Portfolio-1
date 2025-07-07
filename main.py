@@ -208,7 +208,7 @@ achieve_page = st.Page(
 
 experience_page = st.Page(
     page = "iter_page/colloborator.py",
-    title = "Colloboration",
+    title = "Collaboration",
     icon = "📈"
 )
 
