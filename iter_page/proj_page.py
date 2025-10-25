@@ -21,8 +21,17 @@ def proj_15():
 def proj_16():
     st.video("proj-img/animat-6.mp4")
 
+def proj_17():
+    st.video("proj-img/animat-7.mp4")
+
+def proj_18():
+    st.video("proj-img/animat-8.mp4")
+
+def proj_19():
+    st.video("proj-img/animat-9.mp4")
+
 # List of functions
-projects = [proj_16, proj_15, proj_14, proj_11, proj_12, proj_13]
+projects = [proj_19, proj_18, proj_17, proj_16, proj_15, proj_14, proj_11, proj_12, proj_13]
 
 # Session state for index
 if "project_index" not in st.session_state:
