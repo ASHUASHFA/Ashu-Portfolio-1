@@ -1,154 +1,237 @@
 import streamlit as st
-import smtplib
-from email.mime.text import MIMEText
-import time
-import base64
 
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
+st.set_page_config(
+    page_title="Ashfaq", 
+    page_icon="ashu-logo.jpg",
+    layout="centered",
+    initial_sidebar_state="auto"
+)
 
-# Use circular version if available
-image_base64 = get_base64_image("ashu-logo.jpg")  # Replace with 'sezo-logo-circle.png' if you have it
-
-css_html = f"""
-<style>
-
-/* Background pulse */
-@keyframes background-pulse {{
-  0% {{ background-color: #001f3f; }}
-  50% {{ background-color: #003366; }}
-  100% {{ background-color: #001f3f; }}
-}}
-
-body {{
-  animation: background-pulse 7s ease-in-out infinite;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}}
-
-/* Main container */
-.container {{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}}
-
-/* Wrapper */
-.logo-wrapper {{
-  position: relative;
-  width: 260px;
-  height: 260px;
-  margin: 60px auto;
-}}
-
-
-
-/* Main logo image */
-.logo-img {{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  z-index: 1;
-  border-radius: 50%;
-  animation: 
-    logo-enter 1.2s cubic-bezier(0.2, 0.8, 0.3, 1.2) forwards,
-    subtle-float 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(0, 192, 255, 0.3));
-}}
-
-@keyframes logo-enter {{
-  0% {{ transform: scale(0.5) rotate(-15deg); opacity: 0; }}
-  80% {{ transform: scale(1.05) rotate(5deg); }}
-  100% {{ transform: scale(1) rotate(0deg); opacity: 1; }}
-}}
-
-@keyframes subtle-float {{
-  0%, 100% {{ transform: translateY(0); }}
-  50% {{ transform: translateY(-10px); }}
-}}
-
-
-/* Outer ring animation */
-.outer-ring {{
-  position: absolute;
-  width: 110%;
-  height: 110%;
-  top: -5%;
-  left: -5%;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 192, 255, 0.3);
-  animation: ring-pulse 4s ease-out infinite;
-  z-index: 0;
-}}
-
-@keyframes ring-pulse {{
-  0% {{ transform: scale(1); opacity: 0.7; }}
-  70% {{ transform: scale(1.1); opacity: 0; }}
-  100% {{ transform: scale(1); opacity: 0; }}
-}}
-
-</style>
-
-<div class="logo-wrapper">
-  <div class="outer-ring"></div>
-  <div class="rotating-arc"></div>
-  <img class="logo-img" src="data:image/png;base64,{image_base64}" alt="ashu Logo" />
-</div>
+# Hide default footer and MainMenu
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
 """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Hero section
-col1, col2 = st.columns(2, gap = "small", vertical_alignment = "center")
-with col1:
-    # Render the HTML and CSS
-    st.markdown(css_html, unsafe_allow_html=True)
-with col2:
-    st.title("Ashfaq Ahmed.M", anchor = False)
-    st.markdown("<div class='custom-write1'>Graphic Designer with a creative approach to visual storytelling. My work mainly focuses on branding, promotions, and collaboration projects, where I aim to bring fresh and impactful designs to life.</div>",
-    unsafe_allow_html=True)
-    st.write(" ")
-        
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-# Experience & Qualifications
-st.write("\n")
-st.subheader("About", anchor = False, divider = "rainbow")
-st.write(
-    """
-    -   I’m Ashfaq Ahmed.M, currently pursuing B.E. in Computer Science and Engineering
-    -   I’m always open to new collaborations and opportunities that challenge my skills and help me grow as a designer
-    -   I’m also associated with "The Poster Mart", a platform that allows me to showcase my creativity and connect with like-minded individuals.
-    """
+    html, body, .stApp {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(ellipse at center, #0a0a0a 0%, #101d2c 100%);
+        color: #ffffff;
+        font-family: 'Orbitron', monospace;
+        animation: pulseBg 2s ease-in-out infinite;
+        overflow-x: hidden;
+    }
+
+    @keyframes pulseBg {
+        0%, 100% { background-color: #0a0a0a; }
+        50% { background-color: #121d2b; }
+    }
+
+    h1, h2 {
+        color: #00f0ff;
+        text-shadow:
+            0 0 10px #00f0ff,
+            0 0 20px #00f0ff,
+            0 0 40px #00f0ff;
+        animation: glowText 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+        0% { text-shadow: 0 0 5px #00e0ff, 0 0 20px #00f0ff; }
+        100% { text-shadow: 0 0 20px #00f0ff, 0 0 40px #00e0ff; }
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        color: #c8d8ff;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+        animation: glowText 3s ease-in-out infinite alternate;
+    }
+            
+    .custom-write {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.2rem;
+        color: #00f0ff;
+        text-shadow: 0 0 1px #00f0ff, 0 0 1px #00caff;
+        overflow: hidden;
+        white-space: normal;
+        display: inline-block;
+        border-right: 2px solid #00f0ff;
+        width: 0;
+        animation: 
+            typing 2s steps(100, end) forwards, 
+            blink-caret 0.75s step-end 6;
+        animation-fill-mode: forwards;
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    /* Caret blinking */
+    @keyframes blink-caret {
+        0%, 100% { border-color: transparent }
+        50% { border-color: #00f0ff }
+    }
+
+    .custom-write1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.9rem;
+        color: #00f0ff;
+        text-shadow: 0 0 0.7px #00f0ff, 0 0 0.7px #00caff;
+        overflow: hidden;
+        white-space: normal;
+        display: inline-block;
+    }
+
+
+    .stButton > button {
+        background-color: #00f0ff;
+        color: black;
+        border-radius: 8px;
+        padding: 0.6em 1.2em;
+        border: none;
+        font-weight: bold;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 0 10px #00f0ff;
+        animation: pulseGlow 2s ease-in-out infinite alternate;
+    }
+
+    .stButton > button:hover {
+        background-color: #00caff;
+        transform: scale(1.05);
+    }
+
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+    </style>
+
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": { "enable": true, "value_area": 800 }
+            },
+            "color": { "value": "#00f0ff" },
+            "shape": { "type": "circle" },
+            "opacity": {
+                "value": 0.6,
+                "random": false
+            },
+            "size": {
+                "value": 4,
+                "random": true
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 120,
+                "color": "#00f0ff",
+                "opacity": 0.4,
+                "width": 1.5
+            },
+            "move": {
+                "enable": true,
+                "speed": 1.6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out"
+            }
+        },
+        "interactivity": {
+            "events": {
+                "onhover": { "enable": true, "mode": "repulse" },
+                "onclick": { "enable": false }
+            },
+            "modes": {
+                "repulse": {
+                    "distance": 100,
+                    "duration": 0.4
+                }
+            }
+        },
+        "retina_detect": true
+    });
+    </script>
+""", unsafe_allow_html=True)
+
+
+# Page setup
+
+about_page = st.Page(
+    page = "iter_page/about.py",
+    title = "About",
+    icon = ":material/account_circle:",
+    default = True,
 )
 
-# Skills
-st.write("\n")
-st.subheader("Hard Skills", anchor = False, divider = "rainbow")
-st.write(
-    """
-    - 🎨 Adobe Photoshop 
-    - ✒️ Vector Illustration (Illustrator) 
-    - 🖥️ UI/UX Design (Figma, XD) 
-    - 📐 Print Design (ibisPaint X) 
-    - 🎞️ Motion Graphics 
-    """
+projects_page = st.Page(
+    page = "iter_page/proj_page.py",
+    title = "Projects",
+    icon = ":material/bar_chart:",
 )
 
-# Sites
-st.write("\n")
-st.subheader("Websites", anchor = False, divider = "rainbow")
-col3, col4, col5, col6 = st.columns(4, gap = "small", vertical_alignment = "center")
-with col3:
-    st.link_button("GitHub Link", 'https://github.com/ASHUASHFA')
-with col4:
-    st.link_button("LinkedIn Link", 'https://www.linkedin.com/in/ashfaq-ahmed-m-b3a49a2a5')
-with col5:
-    st.link_button("Instagram Link", 'https://www.instagram.com/ax_faq_?igsh=OWhqZDMzY3JmNGc=')
-with col6:
-    st.link_button("Figma Link", 'https://www.figma.com/make/duF5T5vjyBsg2Dq38DkkK6/Portfolio-Website-for-Ashfaq-Ahmed?node-id=0-1&p=f')
+course_page = st.Page(
+    page = "iter_page/cert_page.py",
+    title = "Cources",
+    icon = "📃"
+)
+
+achieve_page = st.Page(
+    page = "iter_page/achievement.py",
+    title = "Achievement",
+    icon = "🌟"
+)
+
+experience_page = st.Page(
+    page = "iter_page/colloborator.py",
+    title = "Collaboration",
+    icon = "📈"
+)
+
+#service_page = st.Page(
+#    page = "iter_page/service.py",
+#    title = "Services",
+#    icon = "🛠️"
+#)
+
+# Navigation Menu Setup (without section)
+pg = st.navigation(pages = [about_page, projects_page, course_page, achieve_page, experience_page])
+
+# Navigation Menu Setup (including section)
+#pg = st.navigation(
+   # {
+  #      "Info":[about_page],
+ #       "Projects":[project_1_page, project_2_page]
+#    }
+#)
+
+# Shared on all pages
+st.logo("ashu-logo.jpg")
+st.sidebar.text("Graphic Designer")
+
+# Run Navigation
+pg.run()
