@@ -143,10 +143,12 @@ st.write(
 # Sites
 st.write("\n")
 st.subheader("Websites", anchor = False, divider = "rainbow")
-col3, col4, col5 = st.columns(3, gap = "small", vertical_alignment = "center")
+col3, col4, col5, col6 = st.columns(4, gap = "small", vertical_alignment = "center")
 with col3:
     st.link_button("GitHub Link", 'https://github.com/ASHUASHFA')
 with col4:
     st.link_button("LinkedIn Link", 'https://www.linkedin.com/in/ashfaq-ahmed-m-b3a49a2a5')
 with col5:
     st.link_button("Instagram Link", 'https://www.instagram.com/ax_faq_?igsh=OWhqZDMzY3JmNGc=')
+with col6:
+    st.link_button("Figma Link", 'https://www.figma.com/make/duF5T5vjyBsg2Dq38DkkK6/Portfolio-Website-for-Ashfaq-Ahmed?node-id=0-1&p=f')
